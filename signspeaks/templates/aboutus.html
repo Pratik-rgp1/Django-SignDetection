@@ -1,0 +1,64 @@
+{% load static %}
+{% include 'header.html'%}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>about us</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/aboutus.css' %}" />
+</head>
+<body>
+    <br>
+    <h2>About Us</h2>
+    <div class="container-about">
+        <br>
+         <div class="team-photo">
+            <img src="{% static 'images/sign.png' %}" alt="Team Photo"> <!-- Add your image file name -->
+        </div>
+        <h2>Welcome to SignSpeaks!</h2>
+        <p>
+            At SignSpeaks, we are passionate about breaking down communication barriers and making the world a more inclusive place.
+            Our project, a sign language detector, is designed to bridge the gap between the hearing and Deaf communities by leveraging
+            cutting-edge technology.
+        </p>
+        
+        <h2>Our Mission</h2>
+        <p>
+            Our mission is to create a tool that facilitates seamless communication for those who use sign language, allowing for greater 
+            accessibility and understanding. We aim to empower the Deaf and Hard of Hearing with technology that translates sign language 
+            into spoken or written language, enhancing interaction and inclusivity.
+        </p>
+        
+        <h2>What We Do</h2>
+        <p>
+            SignSpeaks is a sign language detection system that uses advanced computer vision and machine learning techniques to recognize 
+            and translate sign language gestures into text or speech in real-time. This innovative technology has the potential to transform 
+            communication in various settings, from education and healthcare to customer service and beyond.
+        </p>
+        
+        <h2>Our Team</h2>
+        <p>
+            We are a group of final-year students with diverse backgrounds in computer science, engineering, and linguistics. Our shared 
+            commitment to social impact and technical expertise drives us to create solutions that make a tangible difference. Through collaboration 
+            and innovation, we are building a platform that contributes to a more accessible and inclusive world.
+        </p>
+        
+       
+        
+        <h2>Why SignSpeaks?</h2>
+        <p>
+            We believe that everyone deserves to be understood and to connect with others. SignSpeaks is our contribution to a future where communication 
+            is not a barrier but a bridge. We are excited to share our journey with you and look forward to seeing how our project can make a positive impact.
+        </p>
+        
+        <h2>Get Involved</h2>
+        <p>
+            If you'd like to learn more about SignSpeaks, collaborate with us, or support our project, please reach out to us. We are always open to partnerships, 
+            feedback, and ideas to improve our technology and expand its reach. Together, let's create a world where everyone can communicate effortlessly.
+        </p>
+    </div>
+</body>
+</html>
+{% include 'footer.html'%}

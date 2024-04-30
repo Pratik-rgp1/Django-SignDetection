@@ -1,0 +1,34 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignSpeaks</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/homepage.css' %}" />
+    <script src="{% static 'js/homepage.js'%}"></script>
+</head>
+<body>
+    <div class="logo">
+        <img src="{% static 'images/logo1.png' %}" alt="My logo" />
+      </div>
+      <nav>
+        <a class="item" href="{% url 'homepage' %}" style="color: white; text-decoration: none;">Home</a>
+        <a class="item" href="{% url 'aboutus' %}" style="color: white; text-decoration: none">About Us</a>
+        <a class="item" href="{% url 'contactus' %}" style="color: white; text-decoration: none">Contact</a>
+        <div class="item">
+          Features
+          <div class="dropdown">
+            <div>
+              <a>Chatbot</a>
+              <a>Recognition</a>
+            </div>
+            <br>
+          </div>
+        </div>
+        <!-- <div class="underline"></div> -->
+      </nav>
+</body>
+</html>

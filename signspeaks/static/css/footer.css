@@ -1,0 +1,43 @@
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    border-top: 1px solid #413ba8;
+}
+label {
+    color: white;
+}
+
+.box {
+    width: 25%;  /* 4 boxes in a row */
+    padding: 10px;
+    text-align: center;
+}
+
+.box p {
+    text-decoration: underline;
+    padding: 2px;
+}
+
+.footer {
+    text-align: center;
+    padding: 5px;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 768px) { 
+    .box {
+        width: 50%;  
+    }
+}
+
+@media (max-width: 480px) {  
+    .box {
+        width: 100%;  
+        padding: 20px;  
+    }
+
+    .footer {
+        padding: 10px;  
+    }
+}

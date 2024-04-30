@@ -1,0 +1,22 @@
+.container-about {
+    max-width: 800px; /* Set maximum width for better readability */
+    margin: 0 auto; /* Center the container */
+    padding: 10px;
+}
+
+.team-photo {
+    text-align: right; /* Align the image to the right */
+    margin-bottom: 20px; /* Add some space between the image and text */
+    justify-content: end;
+}
+
+.team-photo img {
+    width: 60%; /* Set maximum width for the image */
+    height: 70%; /* Maintain aspect ratio */
+    border: 1px solid wheat;
+    
+}
+
+.container h2{
+    text-align: center;
+}
