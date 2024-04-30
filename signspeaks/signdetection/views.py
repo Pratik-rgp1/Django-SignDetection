@@ -1,19 +1,18 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
-
 from django.forms import inlineformset_factory
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
-
 from django.core.mail import send_mail
 from django.core.mail import EmailMultiAlternatives
-
 from django.template import Context
-
 from .forms import NewUserForm
 from django.contrib.auth import login
 from django.contrib import messages
+from django.contrib.auth import logout as auth_logout
+from django.contrib.auth import login as auth_login
+from django.views.decorators.csrf import csrf_protect
 
 def register(request):
     if request.method == "POST":
@@ -37,7 +36,7 @@ def login(request):
             password = form.cleaned_data.get('password')
             user = authenticate(username=username, password=password)
             if user is not None:
-                # login(request, user)
+                auth_login(request, user)
                 messages.info(request, f"You are now logged in as {username}.")
                 return redirect("homepage")
             else:
@@ -47,6 +46,10 @@ def login(request):
     form = AuthenticationForm()
     return render(request=request, template_name="user/login.html", context={"login_form":form})
 	
+def logout(request):
+    auth_logout(request)
+    messages.info(request,"You have successfully logged out.")
+    return redirect("homepage")
 
 def homepage(request):
     return render(request,'homepage.html')

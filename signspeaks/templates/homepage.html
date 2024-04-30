@@ -63,9 +63,17 @@
   <div class="text-right">
     <p>Communicate effortlessly with our sign language detector</p>
     <br>
+
+    <!--only display buttons for non-authenticated users -->
+    {% if user.is_authenticated %}
+    <div class="logout">
+      <button class="signup-button"><a href="{% url 'logout' %}" style="color: white; text-decoration: none;">Logout</a></button>
+        <!-- <a class="nav-link" href="#">Welcome, {{user.username}}</a> -->
+    </div>
+    {% else %}
     <button class="explore-button"><a href="{% url 'login' %}" style="color: white; text-decoration: none;">Login</a></button>
     <button class="signup-button"><a href="{% url 'registerpage' %}" style="color: white; text-decoration: none;">Signup</a></button>
-    
+    {% endif %}
   </div>
 </div>
 
