@@ -1,15 +1,10 @@
+{% extends 'base.html' %}
 {% load static %}
-{% include 'header.html'%}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>about us</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/aboutus.css' %}" />
-</head>
-<body>
+
+{% block content %}
+    
+
     <br>
     <h2>About Us</h2>
     <div class="container-about">
@@ -59,6 +54,5 @@
             feedback, and ideas to improve our technology and expand its reach. Together, let's create a world where everyone can communicate effortlessly.
         </p>
     </div>
-</body>
-</html>
-{% include 'footer.html'%}
+    
+    {% endblock %}

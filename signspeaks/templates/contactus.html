@@ -1,15 +1,8 @@
+{% extends 'base.html' %}
 {% load static %}
-{% include 'header.html'%}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/contactus.css' %}" />
-</head>
-<body>
+{% block content %}
+
     <div class="contact-container">
         <h1>Contact Us</h1>
         <form action="/submit_contact_form" method="post">
@@ -28,8 +21,5 @@
             <button type="submit">Send Message</button>
         </form>
     </div>
-
     
-</body>
-</html>
-{% include 'footer.html'%}
+{% endblock %}

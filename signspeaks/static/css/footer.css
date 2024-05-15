@@ -1,27 +1,32 @@
-.container {
+.footer_container {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
     border-top: 1px solid #413ba8;
 }
+
 label {
     color: white;
 }
 
+.get-touch p {
+    font-size: 17px;
+    font-weight:500;
+}
+
 .box {
     width: 25%;  /* 4 boxes in a row */
-    padding: 10px;
-    text-align: center;
+    padding: 7px;
 }
 
 .box p {
-    text-decoration: underline;
-    padding: 2px;
+    font-size: 14px;
 }
 
-.footer {
+.caption {
     text-align: center;
-    padding: 5px;
+    padding: 3px;
+    color: aqua;
 }
 
 /* Media query for smaller screens */
@@ -37,7 +42,7 @@ label {
         padding: 20px;  
     }
 
-    .footer {
+    .caption {
         padding: 10px;  
     }
 }

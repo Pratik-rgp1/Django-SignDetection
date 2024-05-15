@@ -1,28 +1,13 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Homepage</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
-  <link rel="stylesheet" type="text/css" href="{% static 'css/homepage.css' %}" />
-  <script src="{% static 'js/homepage.js'%}"></script>
-</head>
 
-<body>
-  
   <div class="slideshow-container">
 
     <div class="mySlides fade">
       <img src="{% static 'images/sign_love.jpg' %}" alt="my img" style="width:100%">
       <div class="text">Love</div>
-      
+
     </div>
 
     <div class="mySlides fade">
@@ -31,57 +16,55 @@
     </div>
 
     <!-- Next and previous buttons -->
-  <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-  <a class="next" onclick="plusSlides(1)">&#10095;</a>
+    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+    <a class="next" onclick="plusSlides(1)">&#10095;</a>
 
   </div>
   <br>
 
   <!-- The dots/circles -->
-<div style="text-align:center">
-  <span class="dot" onclick="currentSlide(1)"></span>
-  <span class="dot" onclick="currentSlide(2)"></span>
-</div>
-
-<div class="left-heading" style="border-radius: 7px;">
-  <div class="text-right">
-    <br>
-    <button class="signup-button">Chat with Isya</button>
+  <div style="text-align:center">
+    <span class="dot" onclick="currentSlide(1)"></span>
+    <span class="dot" onclick="currentSlide(2)"></span>
   </div>
-  <div class="text-left">
-    <h1 style="font-size: 20px;">Get real-time support and personalized feedback with our sign language learning chatbot.</h1>
-  </div>
-</div>
 
-
-<!-- Container 2 -->
-<div class="left-heading" style="border: 1px solid #ddd; border-radius: 7px; background-color: rgb(108, 145, 184);">
-  <div class="text-left">
-    <h1>Discover the power of sign language</h1>
-
-  </div>
-  <div class="text-right">
-    <p>Communicate effortlessly with our sign language detector</p>
-    <br>
-
-    <!--only display buttons for non-authenticated users -->
-    {% if user.is_authenticated %}
-    <div class="logout">
-      <button class="signup-button"><a href="{% url 'logout' %}" style="color: white; text-decoration: none;">Logout</a></button>
-        <!-- <a class="nav-link" href="#">Welcome, {{user.username}}</a> -->
+  <div class="left-heading" style="border-radius: 7px;">
+    <div class="text-left">
+      <p style="font-size: 20px;">Get real-time support and personalized feedback with our sign language learning
+        chatbot.</p>
     </div>
-    {% else %}
-    <button class="explore-button"><a href="{% url 'login' %}" style="color: white; text-decoration: none;">Login</a></button>
-    <button class="signup-button"><a href="{% url 'registerpage' %}" style="color: white; text-decoration: none;">Signup</a></button>
-    {% endif %}
+    <div class="text-right" style="padding: 2rem;">
+      <button class="signup-button" style="padding: 2rem;">Chat with Isya</button>
+    </div>
   </div>
-</div>
 
-<!-- Get in touch -->
-<div class="get-touch" style="color: rgb(104, 122, 227);">
-  <h3>Get in Touch</h3>
-</div>
 
-</body>
-</html>
-{% endblock %}
+  <!-- Container 2 -->
+  <div class="left-heading" style="border: 1px solid #ddd; border-radius: 7px; background-color: rgb(65, 96, 129);">
+    <div class="text-left">
+      <h1 style="color: white;">Discover the power of sign language</h1>
+
+    </div>
+    <div class="text-right">
+      <p>Communicate effortlessly with our sign language detector</p>
+      <br>
+
+      <!--only display buttons for non-authenticated users -->
+      {% if user.is_authenticated %}
+      <div class="logout">
+        <form action="{% url 'logout' %}" method="post">
+          {% csrf_token %}
+          <button type="submit" class="signup-button" style="color: white; text-decoration: none;">Logout</button>
+        </form>        
+        <a class="nav-link" href="#">Welcome, {{user.username}}</a>
+      </div>
+      {% else %}
+      <button class="explore-button"><a href="{% url 'login' %}"
+          style="color: white; text-decoration: none;">Login</a></button>
+      <button class="signup-button"><a href="{% url 'register' %}"
+          style="color: white; text-decoration: none;">Signup</a></button>
+      {% endif %}
+    </div>
+  </div>
+
+  {% endblock %}
