@@ -54,9 +54,9 @@
       <div class="logout">
         <form action="{% url 'logout' %}" method="post">
           {% csrf_token %}
-          <button type="submit" class="signup-button" style="color: white; text-decoration: none;">Logout</button>
+          <button type="submit" class="signup-button" style="color: white; text-decoration: none; margin: 10px;">Logout</button>
         </form>        
-        <a class="nav-link" href="#">Welcome, {{user.username}}</a>
+        <!-- <a class="nav-link" href="#">Welcome, {{user.username}}</a> -->
       </div>
       {% else %}
       <button class="explore-button"><a href="{% url 'login' %}"

@@ -1,21 +1,49 @@
-{% extends 'base.html' %}
+{% extends "base_logo.html"%}
+{% load static %}
+    {% block base_log %}
 
-{% block content %}
+    
+    <div class="global-container">
+        <div class="logo">
+            <img src="{% static 'images/logo1.png' %}" alt="My logo" />
+          </div>
+        <div class="card login-form">
+        <div class="card-body">
+            <h3 class="card-title text-center">Log in</h3>
+            {% if messages %}
 
-{% load crispy_forms_tags %}
+            {% for message in messages %}
+            <div class="alert alert-info">
+                {{ message }}
+            </div>
+            {% endfor %}
+      
+        {% endif %}
+            <div class="card-text">
+                <!--
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">Incorrect username or password.</div> -->
+                <form method="post" >
+                    {% csrf_token %}
+                    <!-- to error: add class "has-danger" -->
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Username</label>
+                        <input type="text" name="username" class="form-control form-control-sm" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Password</label>
+                        <a href="#" style="float:right;font-size:12px;">Forgot password?</a>
+                        <input type="password" name="password" class="form-control form-control-sm" id="exampleInputPassword1">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+                    
+                    <div class="sign-up">
+                        Don't have an account? <a href="{% url 'register' %}">Create One</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+    
 
-<div class="container-login py-5">
-  <div class="head text-center">
-    <h1>Login</h1>
-  </div>
-  <form method="POST">
-    {% csrf_token %}
-    {{ login_form|crispy }}
-    <button class="btn btn-primary btn-block mt-3" type="submit">Login</button>
-    <p><a href="#" style="float:right;font-size:15px;">Forgot password?</a></p>
-  </form>
-  <br>
-  <p class="text-center">Don't have an account? <a href="/register">Create an account</a>.</p>
-</div>
-
-{% endblock %}
+    {% endblock %}
