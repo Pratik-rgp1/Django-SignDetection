@@ -16,7 +16,16 @@ from django.contrib.auth import authenticate, login
 from .models import *
 import uuid
 from django.core.mail import send_mail
+from django.core.exceptions import ObjectDoesNotExist
 
+#password reset
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.template.loader import render_to_string
+from django.utils.encoding import force_bytes, force_str
+from django.contrib.auth.tokens import default_token_generator
+from django.contrib.auth import get_user_model
+from .forms import PasswordResetRequestForm, SetNewPasswordForm
+from django.urls import reverse
 
 
 # views.py
@@ -101,6 +110,7 @@ def video_feed(request):
         print(f"Error: {e}")
         return JsonResponse({'error': str(e)})
 
+# sign recognition template
 def recognition(request):
     return render(request, 'recognition.html')
 
@@ -165,9 +175,57 @@ def user_login(request):
 
     return render(request , 'users/login.html')
 	
+User = get_user_model()
+#forgot password
+def forgot_password(request):
+    if request.method == "POST":
+        form = PasswordResetRequestForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            user = User.objects.get(email=email)
+            token = default_token_generator.make_token(user)
+            uid = urlsafe_base64_encode(force_bytes(user.pk))
+            password_reset_url = request.build_absolute_uri(
+                reverse('reset_password', args=[uid, token])
+            )
+            message = render_to_string('users/password_reset_email.html', {
+                'user': user,
+                'password_reset_url': password_reset_url,
+            })
+            send_mail(
+                'Password Reset Request',
+                message,
+                'speakssign@gmail.com',
+                [user.email],
+                fail_silently=False,
+            )
+            return redirect('password_reset_done')
+    else:
+        form = PasswordResetRequestForm()
+    return render(request, 'users/forgot_password.html', {'form': form})
+    
+#reset passsword
+def reset_password(request, uidb64, token):
+    if request.method == "POST":
+        form = SetNewPasswordForm(request.POST)
+        if form.is_valid():
+            try:
+                uid = force_str(urlsafe_base64_decode(uidb64))
+                user = User.objects.get(pk=uid)
+            except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+                user = None
 
-def forget_password(request):
-    return render(request,'users/forget_password.html')
+            if user is not None and default_token_generator.check_token(user, token):
+                new_password = form.cleaned_data['new_password']
+                user.set_password(new_password)
+                user.save()
+                return redirect('login')
+    else:
+        form = SetNewPasswordForm()
+    return render(request, 'users/reset_password.html', {'form': form})
+
+def password_reset_done(request):
+    return render(request,'users/password_reset_done.html')
 
 def homepage(request):
     return render(request,'homepage.html')
@@ -199,14 +257,41 @@ def verify(request , auth_token):
 
         if profile_obj:
             if profile_obj.is_verified:
+                #message
                 messages.success(request, 'Your account is already verified.')
                 return redirect('/login')
+
             profile_obj.is_verified = True
             profile_obj.save()
             messages.success(request, 'Your account has been verified.')
             return redirect('/login')
-        # else:
-        #     return redirect('/error')
+        else:
+            #message
+            messages.success(request, 'Invalid verification link.')
+            return redirect('/')
+
     except Exception as e:
         print(e)
         return redirect('/')
+
+
+@login_required
+def update_profile(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+
+        user = request.user
+        user.username = username
+        user.email = email
+
+        if password:
+            user.set_password(password)
+        
+        user.save()
+
+        messages.success(request, 'Profile updated successfully')
+        return redirect('login')
+
+    return render(request, 'users/update_profile.html')
