@@ -182,3 +182,6 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'speakssign@gmail.com'
 EMAIL_HOST_PASSWORD = 'gbpt lgyo gwou wuzg'
+
+# ALLOWED_HOSTS = ['yourdomain.com', 'localhost', '8ac5-103-156-26-88.ngrok-free.app']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']

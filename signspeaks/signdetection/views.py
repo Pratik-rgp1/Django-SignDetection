@@ -120,33 +120,68 @@ def register(request):
         username = request.POST.get('username')
         email = request.POST.get('email')
         password = request.POST.get('password')
+        
+        if not email:
+            messages.error(request, 'Email is required.')
+            return redirect('/register')
 
         try:
-            if User.objects.filter(username = username).first():
-                messages.success(request, 'Username is taken.')
+            if User.objects.filter(username=username).exists():
+                messages.error(request, 'Username is taken.')
                 return redirect('/register')
 
-            if User.objects.filter(email = email).first():
-                messages.success(request, 'Email is taken.')
+            if User.objects.filter(email=email).exists():
+                messages.error(request, 'Email is taken.')
                 return redirect('/register')
             
-            user_obj = User(username = username , email = email)
+            user_obj = User(username=username, email=email)
             user_obj.set_password(password)
             user_obj.save()
 
-
             auth_token = str(uuid.uuid4())
-            profile_obj = Profile.objects.create(user = user_obj , auth_token = auth_token)
+            profile_obj = Profile.objects.create(user=user_obj, auth_token=auth_token)
             profile_obj.save()
             
-            send_mail_after_registration(email , auth_token)
+            send_mail_after_registration(email, auth_token)
             print("Redirecting to /token") 
             return redirect('/token')
         except Exception as e:
             print(e)
+            messages.error(request, 'An error occurred during registration.')
             
-    return render(request , 'users/register.html')
+    return render(request, 'users/register.html')
 
+# email verification 
+def send_mail_after_registration(email , token):
+    subject = 'Your accounts need to be verified'
+    message = f'Hi paste the link to verify your account http://127.0.0.1:8000/verify/{token}'
+    email_from = settings.EMAIL_HOST_USER
+    recipient_list = [email]
+    send_mail(subject, message , email_from ,recipient_list )
+
+def verify(request , auth_token):
+    try:
+        profile_obj = Profile.objects.filter(auth_token = auth_token).first()
+    
+
+        if profile_obj:
+            if profile_obj.is_verified:
+                #message
+                messages.success(request, 'Your account is already verified.')
+                return redirect('/login')
+
+            profile_obj.is_verified = True
+            profile_obj.save()
+            messages.success(request, 'Your account has been verified.')
+            return redirect('/login')
+        else:
+            #message
+            messages.success(request, 'Invalid verification link.')
+            return redirect('/')
+
+    except Exception as e:
+        print(e)
+        return redirect('/')
 
 def user_login(request):
     if request.method == 'POST':
@@ -242,37 +277,6 @@ def success(request):
 def token_send(request):
     return render(request , 'users/token_send.html')
 
-# email verification 
-def send_mail_after_registration(email , token):
-    subject = 'Your accounts need to be verified'
-    message = f'Hi paste the link to verify your account http://127.0.0.1:8000/verify/{token}'
-    email_from = settings.EMAIL_HOST_USER
-    recipient_list = [email]
-    send_mail(subject, message , email_from ,recipient_list )
-
-def verify(request , auth_token):
-    try:
-        profile_obj = Profile.objects.filter(auth_token = auth_token).first()
-    
-
-        if profile_obj:
-            if profile_obj.is_verified:
-                #message
-                messages.success(request, 'Your account is already verified.')
-                return redirect('/login')
-
-            profile_obj.is_verified = True
-            profile_obj.save()
-            messages.success(request, 'Your account has been verified.')
-            return redirect('/login')
-        else:
-            #message
-            messages.success(request, 'Invalid verification link.')
-            return redirect('/')
-
-    except Exception as e:
-        print(e)
-        return redirect('/')
 
 
 @login_required

@@ -2,10 +2,10 @@
 
 /* Slideshow container */
 .slideshow-container {
-  max-width: 1000px;
+  margin-top: 60px; /* Adjust margin to maintain space below the fixed header */
   position: relative;
-  margin: auto;
-  padding-top: 40px;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 /* Hide the images by default */
@@ -88,10 +88,11 @@
 }
 
 .left-heading {
-    display: flex;  
-    justify-content: space-between; 
-    
-  }
+  margin-top: 20px; /* Add margin to separate the content */
+  padding: 20px;
+  border-radius: 7px;
+  background-color: #f2f2f2;
+}
   
   .text-left h1 {
     text-align: center;  

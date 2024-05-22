@@ -1,0 +1,51 @@
+/* Add this to your style.css or homepage.css file */
+
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #333; /* Adjust the background color as needed */
+    z-index: 1000; /* Ensure it is above other content */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    height: 100px;
+}
+
+header .logo img {
+    height: 50px; /* Adjust the height as needed */
+}
+
+header nav {
+    display: flex;
+    align-items: center;
+}
+
+header nav a.item {
+    margin: 0 10px;
+    color: white;
+    text-decoration: none;
+}
+
+header nav .item {
+    position: relative;
+}
+
+header nav .dropdown {
+    display: none;
+    position: absolute;
+    /* top: 100%; */
+    left: 0;
+    background: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+header nav .item:hover .dropdown {
+    display: block;
+}
+
+body {
+    padding-top: 80px; /* Add padding to avoid content being hidden under the fixed header */
+}

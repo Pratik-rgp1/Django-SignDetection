@@ -2,10 +2,15 @@
 {% load static %}
 {% block base_log %}
 
+
+
 <div class="global-container">
     <div class="card login-form">
+        <div class="logo_top">
+            <img src="{% static 'images/logo1.png' %}" alt="My logo" width="200px" height="100px" />
+        </div>
         <div class="card-body">
-            <h3 class="card-title text-center">Update User Profile</h3>
+            <h3 class="card-title">Update User Profile</h3>
             <div class="card-text">
                 {% if messages %}
                     {% for message in messages %}
@@ -16,7 +21,6 @@
                 {% endif %}
                 <form method="post">
                     {% csrf_token %}
-                    
                     <div class="form-group">
                         <label for="username">Username</label>
                         <input type="text" name="username" class="form-control form-control-sm" id="username" value="{{ request.user.username }}" required>
@@ -29,7 +33,6 @@
                         <label for="password">Password (leave blank to keep current password)</label>
                         <input type="password" name="password" class="form-control form-control-sm" id="password">
                     </div>
-                    
                     <button type="submit" class="btn btn-primary btn-block mt-2">Update</button>
                 </form>
             </div>

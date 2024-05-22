@@ -2,39 +2,43 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SignSpeaks</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static 'css/homepage.css' %}" />
-    <script src="{% static 'js/homepage.js'%}"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SignSpeaks</title>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'css/homepage.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'css/header.css' %}" />
+  <script src="{% static 'js/homepage.js'%}"></script>
 </head>
+
 <body>
+  <header>
     <div class="logo">
-        <img src="{% static 'images/logo1.png' %}" alt="My logo" />
-      </div>
-      
-      {% if user.is_authenticated %}
-      <div class="logout">
-          <a class="nav-link" href="{% url 'update_profile' %}">Welcome, {{user.username}}</a>
-      </div>
-      {% endif %} 
-      <nav>
-        <a class="item" href="{% url 'homepage' %}" style="color: white; text-decoration: none;">Home</a>
-        <a class="item" href="{% url 'aboutus' %}" style="color: white; text-decoration: none">About Us</a>
-        <a class="item" href="{% url 'contactus' %}" style="color: white; text-decoration: none">Contact</a>
-        <div class="item">
-          Features
-          <div class="dropdown">
-            <div>
-              <a>Chatbot</a>
-              <a href="{% url 'video_feed' %}">Recognition</a>
-            </div>
-            <br>
-          </div>
+      <img src="{% static 'images/logo1.png' %}" alt="My logo" />
+    </div>
+    {% if user.is_authenticated %}
+    <div class="logout">
+      <a class="nav-link" href="{% url 'update_profile' %}">Welcome, {{user.username}}</a>
+    </div>
+    {% endif %}
+    <nav>
+      <a class="item" href="{% url 'homepage' %}" style="color: white; text-decoration: none;">Home</a>
+      <a class="item" href="{% url 'aboutus' %}" style="color: white; text-decoration: none">About Us</a>
+      <a class="item" href="{% url 'contactus' %}" style="color: white; text-decoration: none">Contact</a>
+      <div class="item">
+        Features
+        <div class="dropdown">
+
+          <a>Chatbot</a>
+
+          <a href="{% url 'video_feed' %}">Recognition</a>
         </div>
-        <!-- <div class="underline"></div> -->
-      </nav>
+      </div>
+      </div>
+    </nav>
+  </header>
 </body>
+
 </html>
